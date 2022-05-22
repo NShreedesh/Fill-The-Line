@@ -1,18 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
 
 public class ClickController : MonoBehaviour
 {
     InputController inputController;
 
-    [SerializeField] private float clickInputValue;
     [SerializeField] private Camera cam;
+    private float clickInputValue;
 
     [SerializeField] private List<Tile> tileList = new();
-    [SerializeField] private Vector2 prevPostion;
     [SerializeField] private Tile firstTile;
+    private Vector2 prevPostion;
+
+    [SerializeField] private bool isFirstClick = true;
+    [SerializeField] private ParticleSystem winEffect;
 
     private void Awake()
     {
@@ -60,6 +62,18 @@ public class ClickController : MonoBehaviour
         if (hit.collider == null) return;
         Tile tile = hit.transform.GetComponent<Tile>();
 
+        if (isFirstClick)
+        {
+            if(tile == firstTile)
+            {
+                isFirstClick = false;
+            }
+            else
+            {
+                return;
+            }
+        }
+
         if (tile.isFilled) return;
         if (!CheckIftheTileCanBeFilled(tile.transform.position)) return;
         SpriteRenderer renderer = tile.GetComponent<SpriteRenderer>();
@@ -91,6 +105,7 @@ public class ClickController : MonoBehaviour
         }
 
         print("Won");
+        Instantiate(winEffect, cam.ScreenToWorldPoint(inputController.Player.MousePosition.ReadValue<Vector2>()), Quaternion.identity);
     }
 
     private bool CheckIftheTileCanBeFilled(Vector2 position)
