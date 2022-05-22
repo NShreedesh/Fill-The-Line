@@ -252,6 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: 0
+  levelNumber: 1
 --- !u!1 &2047920528
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,9 +311,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f322f86d280bf4bbfe5636926b45e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelNumber: 1
   levelList:
   - {fileID: 7160677542156008233, guid: 9ba82f59c27a6cf428cc8e0863b4a327, type: 3}
+  - {fileID: 7160677542156008233, guid: 2ed2cf85ead21434192aa93fd7f1b0fe, type: 3}
   tileLayer:
     serializedVersion: 2
     m_Bits: 64

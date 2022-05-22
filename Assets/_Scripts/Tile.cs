@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public bool isFilled;
+    [Header("Tile Info")]
+    [HideInInspector] public bool isFilled;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
+    [Header("Color Info")]
+    [HideInInspector] public Color fillColor;
     private Color startColor;
 
     private void Start()
@@ -18,7 +21,7 @@ public class Tile : MonoBehaviour
 
         if (isFilled)
         {
-            spriteRenderer.color = Color.red;
+            spriteRenderer.color = fillColor;
         }
         else
         {

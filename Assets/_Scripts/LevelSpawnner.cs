@@ -22,6 +22,17 @@ public class LevelSpawnner : MonoBehaviour
     [Header("Click Info")]
     [SerializeField] private bool isFirstClick = true;
 
+    [Header("Tile Color Info")]
+    private Color[] tileColorOptions =
+    {
+        Color.red,
+        Color.green,
+        Color.blue,
+        Color.yellow,
+        Color.magenta
+    };
+    private Color tileColor;
+
     private void Start()
     {
         SpawnLevel();
@@ -30,11 +41,14 @@ public class LevelSpawnner : MonoBehaviour
 
     private void SpawnLevel()
     {
+        tileColor = tileColorOptions[Random.Range(0, tileColorOptions.Length)];
+
         tileContainer = Instantiate(levelList[GameManager.Instance.levelNumber - 1], transform.position, Quaternion.identity).transform;
 
         for (int i = 0; i < tileContainer.childCount; i++)
         {
             tileContainer.GetChild(i).TryGetComponent<Tile>(out Tile tile);
+            tile.fillColor = tileColor;
             tileList.Add(tile);
         }
 
@@ -68,7 +82,7 @@ public class LevelSpawnner : MonoBehaviour
         SpriteRenderer renderer = tile.GetComponent<SpriteRenderer>();
         tile.FillTile(true);
     }
-    
+
     private void UnFillAllTiles()
     {
         foreach (Tile tile in tileList)
