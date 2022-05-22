@@ -12,7 +12,7 @@ public class Tile : MonoBehaviour
         startColor = spriteRenderer.color;
     }
 
-    public void HandleTile(bool shouldFill)
+    public void FillTile(bool shouldFill)
     {
         isFilled = shouldFill;
 
