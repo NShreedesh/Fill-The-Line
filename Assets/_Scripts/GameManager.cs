@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,26 +15,42 @@ public class GameManager : MonoBehaviour
     [Header("Game Level Info")]
     [Min(1)]
     public int levelNumber;
+    [SerializeField] private int totalNumberofLevels;
+
+    [Header("Level Timing Info")]
+    [SerializeField] private float timeForLoadingWinLevel;
 
     public event Action OnMenuState;
     public event Action OnPlayState;
     public event Action OnWinState;
 
+    private CancellationTokenSource cancellationTokenSource;
+
     private void Awake()
     {
         if (instance == null)
+        {
             instance = this;
+            DontDestroyOnLoad(this);
+        }
         else
             Destroy(this);
     }
 
+    private void Start()
+    {
+        levelNumber = SaveLoadManager.Load("LevelNumber");
+    }
+
     private void OnEnable()
     {
+        SceneManager.sceneLoaded += OnLevelFinishedLoading;
         OnWinState += OnGameWin;
     }
 
     private void OnDisable()
     {
+        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
         OnWinState -= OnGameWin;
     }
 
@@ -59,8 +76,37 @@ public class GameManager : MonoBehaviour
 
     private async void OnGameWin()
     {
-        await Task.Delay(2000);
-        SceneManager.LoadSceneAsync(2);
+        cancellationTokenSource = new CancellationTokenSource();
+        cancellationTokenSource.Token.ThrowIfCancellationRequested();
+        try
+        {
+            await Task.Delay((int)(timeForLoadingWinLevel * 1000), cancellationTokenSource.Token);
+            SceneManager.LoadScene(2);
+        }
+        catch
+        {
+            print("Task is Cancelled because Application has Shutdown...");
+        }
+    }
+
+    public void SaveLevel()
+    {
+        if (levelNumber < totalNumberofLevels)
+        {
+            levelNumber++;
+        }
+
+        SaveLoadManager.Save(levelNumber);
+    }
+
+    private void OnApplicationQuit()
+    {
+        cancellationTokenSource?.Cancel();
+    }
+
+    private void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
+    {
+        cancellationTokenSource?.Cancel();
     }
 
     public enum GameState
