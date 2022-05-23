@@ -1,5 +1,7 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,6 +27,16 @@ public class GameManager : MonoBehaviour
             Destroy(this);
     }
 
+    private void OnEnable()
+    {
+        OnWinState += OnGameWin;
+    }
+
+    private void OnDisable()
+    {
+        OnWinState -= OnGameWin;
+    }
+
     public void ChangeGameState(GameState state)
     {
         gameState = state;
@@ -43,6 +55,12 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private async void OnGameWin()
+    {
+        await Task.Delay(2000);
+        SceneManager.LoadSceneAsync(2);
     }
 
     public enum GameState
