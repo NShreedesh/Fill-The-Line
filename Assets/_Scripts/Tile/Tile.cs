@@ -3,7 +3,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     [Header("Tile Info")]
-    [HideInInspector] public bool isFilled;
+     public bool isFilled;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     [Header("Color Info")]

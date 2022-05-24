@@ -13,6 +13,9 @@ public class LevelSpawnner : MonoBehaviour
     [HideInInspector] public Tile firstTile;
     [HideInInspector] public Vector2 prevPostion;
 
+    [Header("Tile Storage Info")]
+    public Tile currentTile;
+
     [Header("Camera Info")]
     public Camera cam;
 
@@ -80,7 +83,7 @@ public class LevelSpawnner : MonoBehaviour
 
         if (tile.isFilled) return;
         if (!CheckIftheTileCanBeFilled(tile.transform.position)) return;
-        SpriteRenderer renderer = tile.GetComponent<SpriteRenderer>();
+        currentTile = tile;
         tile.FillTile(true);
     }
 
@@ -98,7 +101,7 @@ public class LevelSpawnner : MonoBehaviour
         isFirstClick = true;
     }
 
-    public void CheckAllTiles(Vector2 worldMousePosition)
+    public void CheckAllTiles()
     {
         foreach (Tile tile in tileList)
         {
@@ -108,7 +111,7 @@ public class LevelSpawnner : MonoBehaviour
                 return;
             }
         }
-        Instantiate(winEffect, worldMousePosition, Quaternion.identity);
+        Instantiate(winEffect, currentTile.transform.position, Quaternion.identity);
         GameManager.Instance.ChangeGameState(GameManager.GameState.Win);
     }
 

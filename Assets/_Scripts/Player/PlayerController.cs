@@ -34,8 +34,8 @@ public class PlayerController : MonoBehaviour
         if (GameManager.Instance.gameState != GameManager.GameState.Play) return;
 
         clickInputValue = ctx.ReadValue<float>();
-        Vector2 worldMosuePosition = spawnner.ConvertToWorldPosition(inputController.Player.MousePosition.ReadValue<Vector2>());
-        spawnner.CheckAllTiles(worldMosuePosition);
+
+        spawnner.CheckAllTiles();
     }
 
     private void Update()
