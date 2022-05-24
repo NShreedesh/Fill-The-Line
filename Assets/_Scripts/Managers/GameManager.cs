@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
     [Header("Game Level Info")]
     [Min(1)]
     public int levelNumber;
-    [SerializeField] private int totalNumberofLevels;
+    public int totalNumberofLevels;
+    public int totalUnlockedLevels = 1;
 
     [Header("Level Timing Info")]
     [SerializeField] private float timeForLoadingWinLevel;
@@ -39,19 +40,21 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        levelNumber = SaveLoadManager.Load("LevelNumber");
+        OnLevelLoad();
     }
 
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
         OnWinState += OnGameWin;
+        OnPlayState += OnLevelLoad;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
         OnWinState -= OnGameWin;
+        OnPlayState -= OnLevelLoad;
     }
 
     public void ChangeGameState(GameState state)
@@ -85,16 +88,40 @@ public class GameManager : MonoBehaviour
         }
         catch
         {
+#if UNITY_EDITOR
             print("Task is Cancelled because Application has Shutdown...");
+#endif
+        }
+        finally
+        {
+            IncrementLevel();
+            SaveLevel();
         }
     }
 
-    public void SaveLevel()
+    private void OnLevelLoad()
+    {
+        if (PlayerPrefs.HasKey(SaveLoadManagerTags.LevelNumberTag))
+        {
+            totalUnlockedLevels = PlayerPrefs.GetInt(SaveLoadManagerTags.LevelNumberTag);
+        }
+        else
+        {
+            totalUnlockedLevels = 1;
+        }
+    }
+
+    private void IncrementLevel()
     {
         if (levelNumber < totalNumberofLevels)
         {
             levelNumber++;
         }
+    }
+
+    public void SaveLevel()
+    {
+        if (levelNumber <= totalUnlockedLevels) return;
 
         SaveLoadManager.Save(levelNumber);
     }

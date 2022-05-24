@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameUIButtons : MonoBehaviour
+public class GameUI : MonoBehaviour
 {
     [Header("Button Info")]
     [SerializeField] private Button homeButton;

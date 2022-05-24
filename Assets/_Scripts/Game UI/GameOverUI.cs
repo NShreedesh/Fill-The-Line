@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameOverUIButtons : MonoBehaviour
+public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private Button homeButton;
     [SerializeField] private Button playButton;
@@ -31,13 +31,12 @@ public class GameOverUIButtons : MonoBehaviour
 
     private void OnPlayButtonClicked()
     {
-        GameManager.Instance.SaveLevel();
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadScene(1);
     }
 
     private void OnRestartButtonClicked()
     {
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadScene(1);
     }
 
     private void OnDisable()

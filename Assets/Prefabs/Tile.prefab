@@ -110,7 +110,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.80148375, y: 0.80148375}
+  m_Size: {x: 0.9183216, y: 0.9183216}
   m_EdgeRadius: 0
 --- !u!114 &-2689059657223453692
 MonoBehaviour:
@@ -126,3 +126,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFilled: 0
   spriteRenderer: {fileID: 7335916146846749720}
+  fillColor: {r: 0, g: 0, b: 0, a: 0}

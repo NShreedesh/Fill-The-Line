@@ -4,7 +4,7 @@ public class SaveLoadManager
 {
     public static void Save(int levelNumber)
     {
-        PlayerPrefs.SetInt("LevelNumber", levelNumber);
+        PlayerPrefs.SetInt(SaveLoadManagerTags.LevelNumberTag, levelNumber);
     }
     public static int Load(string key)
     {
