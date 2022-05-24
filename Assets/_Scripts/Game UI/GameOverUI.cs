@@ -31,6 +31,7 @@ public class GameOverUI : MonoBehaviour
 
     private void OnPlayButtonClicked()
     {
+        GameManager.Instance.IncrementLevel();
         SceneManager.LoadScene(1);
     }
 

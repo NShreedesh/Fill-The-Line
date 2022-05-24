@@ -14,9 +14,14 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Level Info")]
     [Min(1)]
-    public int levelNumber;
-    public int totalNumberofLevels;
-    public int totalUnlockedLevels = 1;
+    private int levelNumber = 1;
+    public int LevelNumber { get { return levelNumber; }}
+    [Min(1)]
+    private int totalNumberofLevels = 1;
+    public int TotalNumberofLevels { get { return totalNumberofLevels; }}
+    [Min(1)]
+    private int totalUnlockedLevels = 1;
+    public int TotalUnlockedLevels { get { return totalUnlockedLevels; } }
 
     [Header("Level Timing Info")]
     [SerializeField] private float timeForLoadingWinLevel;
@@ -94,7 +99,6 @@ public class GameManager : MonoBehaviour
         }
         finally
         {
-            IncrementLevel();
             SaveLevel();
         }
     }
@@ -111,7 +115,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void IncrementLevel()
+    public void IncrementLevel()
     {
         if (levelNumber < totalNumberofLevels)
         {
@@ -121,9 +125,21 @@ public class GameManager : MonoBehaviour
 
     public void SaveLevel()
     {
-        if (levelNumber <= totalUnlockedLevels) return;
+        if (levelNumber >= totalNumberofLevels) return;
+        int levelToSave = levelNumber + 1;
 
-        SaveLoadManager.Save(levelNumber);
+        if (levelToSave <= totalUnlockedLevels) return;
+        SaveLoadManager.Save(levelToSave);
+    }
+
+    public void AssignLevelNumber(int level)
+    {
+        levelNumber = level;
+    }
+
+    public void AssignTotalNumberOfLevel(int totalLevels)
+    {
+        totalNumberofLevels = totalLevels;
     }
 
     private void OnApplicationQuit()

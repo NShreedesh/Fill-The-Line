@@ -66,6 +66,6 @@ public class GameUI : MonoBehaviour
 
     private void ChangeLevelText()
     {
-        levelText.text = GameManager.Instance.levelNumber.ToString();
+        levelText.text = GameManager.Instance.LevelNumber.ToString();
     }
 }

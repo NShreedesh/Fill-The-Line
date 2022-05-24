@@ -1183,7 +1183,7 @@ MonoBehaviour:
   levelList:
   - {fileID: 7160677542156008233, guid: 9ba82f59c27a6cf428cc8e0863b4a327, type: 3}
   - {fileID: 7160677542156008233, guid: 2ed2cf85ead21434192aa93fd7f1b0fe, type: 3}
-  - {fileID: 7160677542156008233, guid: 2ed2cf85ead21434192aa93fd7f1b0fe, type: 3}
+  - {fileID: 7160677542156008233, guid: 4ff59a15f64589b46a1a7c0fb33a6f23, type: 3}
   tileLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -1193,6 +1193,12 @@ MonoBehaviour:
   cam: {fileID: 519420031}
   winEffect: {fileID: 5446586903080424504, guid: dc8593d0550a64244962f06954857471, type: 3}
   isFirstClick: 1
+  tileColorOptions:
+  - {r: 0.8113208, g: 0.12629052, b: 0.12629052, a: 1}
+  - {r: 0.081301175, g: 0.8207547, b: 0.081301175, a: 1}
+  - {r: 0.12922749, g: 0.12922749, b: 0.8301887, a: 1}
+  - {r: 0.8584906, g: 0.6005621, b: 0.020247417, a: 1}
+  - {r: 0.7598901, g: 0.09211465, b: 0.8490566, a: 1}
 --- !u!1001 &2901914496472446698
 PrefabInstance:
   m_ObjectHideFlags: 0

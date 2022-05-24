@@ -25,7 +25,7 @@ public class MenuLevelButtonSpawn : MonoBehaviour
             int levelNumber = i + 1;
             buttonText.text = levelNumber.ToString();
 
-            if (GameManager.Instance.totalUnlockedLevels < levelNumber)
+            if (GameManager.Instance.TotalUnlockedLevels < levelNumber)
             {
                 button.interactable = false;
                 continue;
@@ -37,7 +37,7 @@ public class MenuLevelButtonSpawn : MonoBehaviour
 
     private void ButtonFunction(int levelNumber)
     {
-        GameManager.Instance.levelNumber = levelNumber;
+        GameManager.Instance.AssignLevelNumber(levelNumber);
         SceneManager.LoadScene(1);
     }
 }
