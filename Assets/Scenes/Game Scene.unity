@@ -444,7 +444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 0.5}
-  m_EffectDistance: {x: 1, y: -20}
+  m_EffectDistance: {x: 0, y: -20}
   m_UseGraphicAlpha: 1
 --- !u!1 &519420028
 GameObject:
@@ -1249,6 +1249,10 @@ PrefabInstance:
     - target: {fileID: 2901914497393595100, guid: 1caf9a7b08afb384cbf7cb370be5eaef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901914497393595101, guid: 1caf9a7b08afb384cbf7cb370be5eaef, type: 3}
+      propertyPath: t
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2901914497393595103, guid: 1caf9a7b08afb384cbf7cb370be5eaef, type: 3}
       propertyPath: m_Name

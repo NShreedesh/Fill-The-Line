@@ -45,7 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: 0
-  levelNumber: 1
-  totalNumberofLevels: 3
-  totalUnlockedLevels: 1
   timeForLoadingWinLevel: 1

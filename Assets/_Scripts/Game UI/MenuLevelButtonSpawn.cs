@@ -20,16 +20,21 @@ public class MenuLevelButtonSpawn : MonoBehaviour
         for (int i = 0; i < numberOfButtonsToSpawnInOneScreen; i++)
         {
             Button button = Instantiate(levelButtonPrefab, transform);
-            TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+            LevelButton levelButton = button.GetComponent<LevelButton>();
 
             int levelNumber = i + 1;
-            buttonText.text = levelNumber.ToString();
+            levelButton.levelNumberText.text = levelNumber.ToString();
 
             if (GameManager.Instance.TotalUnlockedLevels < levelNumber)
             {
                 button.interactable = false;
+                levelButton.lockImage.gameObject.SetActive(true);
+                levelButton.levelNumberText.gameObject.SetActive(false);
                 continue;
             }
+
+            levelButton.lockImage.gameObject.SetActive(false);
+            levelButton.levelNumberText.gameObject.SetActive(true);
 
             button.onClick.AddListener(() => ButtonFunction(levelNumber));
         }

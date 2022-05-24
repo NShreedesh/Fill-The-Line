@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,6 +35,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        SetFrameRateAccordingToPlatform();
+
         if (instance == null)
         {
             instance = this;
@@ -43,23 +46,45 @@ public class GameManager : MonoBehaviour
             Destroy(this);
     }
 
+    private void SetFrameRateAccordingToPlatform()
+    {
+        switch (Application.platform)
+        {
+            case RuntimePlatform.Android:
+            case RuntimePlatform.IPhonePlayer:
+                QualitySettings.vSyncCount = 0;
+                Application.targetFrameRate = 60;
+                break;
+            default:
+                Application.targetFrameRate = -1;
+                break;
+        }
+    }
+
     private void Start()
     {
-        OnLevelLoad();
+        UnlockedLevelChange();
     }
 
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
+
+        OnPlayState += UnlockedLevelChange;
+        OnMenuState += UnlockedLevelChange;
+
         OnWinState += OnGameWin;
-        OnPlayState += OnLevelLoad;
+
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+
+        OnPlayState -= UnlockedLevelChange;
+        OnMenuState -= UnlockedLevelChange;
+
         OnWinState -= OnGameWin;
-        OnPlayState -= OnLevelLoad;
     }
 
     public void ChangeGameState(GameState state)
@@ -103,7 +128,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void OnLevelLoad()
+    private void UnlockedLevelChange()
     {
         if (PlayerPrefs.HasKey(SaveLoadManagerTags.LevelNumberTag))
         {
