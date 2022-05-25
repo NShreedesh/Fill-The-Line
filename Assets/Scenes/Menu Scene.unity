@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b84af38f65d2de47ad1177da4aeee0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundAudioClip: {fileID: 8300000, guid: 0cf7891f67805f34895bd21d431b798b, type: 3}
+  backgroundAudioClip: {fileID: 8300000, guid: 023b856a3ce68a541b038855db0f0a01, type: 3}
 --- !u!1001 &278125881
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -222,10 +222,6 @@ PrefabInstance:
     - target: {fileID: 2466032490515220054, guid: 4a610e59911cb784d9dbf4208bedfaa2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2466032492236626986, guid: 4a610e59911cb784d9dbf4208bedfaa2, type: 3}
-      propertyPath: m_Volume
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a610e59911cb784d9dbf4208bedfaa2, type: 3}

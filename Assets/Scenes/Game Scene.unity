@@ -618,7 +618,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   winEffect: {fileID: 5446586903080424504, guid: dc8593d0550a64244962f06954857471, type: 3}
-  fillEffectSource: {fileID: 8300000, guid: 361b0ae8aea700644bf1a87446fc6a59, type: 3}
+  fillEffectSource: {fileID: 8300000, guid: c5ebf5a0c664ec44a85973fbabcd4d19, type: 3}
   winEffectSource: {fileID: 8300000, guid: 95342475cf837b640990d1d60527ba76, type: 3}
 --- !u!1 &1446166156
 GameObject:
