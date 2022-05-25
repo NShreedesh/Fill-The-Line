@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour
     [Header("Effect Info")]
     [SerializeField] private ParticleSystem winEffect;
 
+    [Header("Audio Info")]
+    [SerializeField] private AudioClip fillEffectSource;
+    [SerializeField] private AudioClip winEffectSource;
+
     private void Awake()
     {
         _inputController = new InputController();
@@ -89,6 +93,7 @@ public class PlayerController : MonoBehaviour
         }
         if (!CheckIftheTileCanBeFilled(tile.transform.position)) return;
         tile.Fill_UnFill_Tile(true);
+        AudioManager.Instance.PlayEffectAudio(fillEffectSource);
         spawnner.filledTileList.Add(tile);
     }
 
@@ -117,6 +122,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         Instantiate(winEffect, spawnner.filledTileList[^1].transform.position, Quaternion.identity);
+        AudioManager.Instance.PlayEffectAudio(winEffectSource);
         GameManager.Instance.ChangeGameState(GameManager.GameState.Win);
     }
 

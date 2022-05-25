@@ -13,42 +13,37 @@ public class GameUI : MonoBehaviour
     [SerializeField] private TMP_Text levelText;
 
     [Header("Sound Button Info")]
-    [SerializeField] private bool isSoundOn;
-    public bool IsSoundOn
-    {
-        get { return isSoundOn; }
-        private set
-        {
-            isSoundOn = value;
-            AudioListener.pause = !isSoundOn;
-            ChangeSoundSprite();
-        }
-    }
     [SerializeField] private Sprite soundOnSprite;
     [SerializeField] private Sprite soundOffSprite;
+
+    [Header("Audio Info")]
+    [SerializeField] private AudioClip clickAudioClip;
 
     private void Start()
     {
         homeButton.onClick.AddListener(OnHomeButtonClicked);
         soundButton.onClick.AddListener( OnSoundButtonClicked);
-
-        IsSoundOn = true;
+       
         ChangeLevelText();
+        ChangeSoundSprite();
     }
 
     private void OnHomeButtonClicked()
     {
+        AudioManager.Instance.PlayEffectAudio(clickAudioClip);
         SceneManager.LoadScene(0);
     }
 
     private void OnSoundButtonClicked()
     {
-        IsSoundOn = !IsSoundOn;
+        AudioManager.Instance.PlayEffectAudio(clickAudioClip);
+        AudioManager.Instance.SetSound();
+        ChangeSoundSprite();
     }
 
     private void ChangeSoundSprite()
     {
-        if (isSoundOn)
+        if (AudioManager.IsSoundOn)
         {
             soundButton.image.sprite = soundOnSprite;
         }

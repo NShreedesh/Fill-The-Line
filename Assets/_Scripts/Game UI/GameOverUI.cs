@@ -4,9 +4,13 @@ using UnityEngine.UI;
 
 public class GameOverUI : MonoBehaviour
 {
+    [Header("Buttons Info")]
     [SerializeField] private Button homeButton;
     [SerializeField] private Button playButton;
     [SerializeField] private Button restartButton;
+
+    [Header("Audio Info")]
+    [SerializeField] private AudioClip clickAudioClip;
 
     private void Start()
     {
@@ -17,17 +21,20 @@ public class GameOverUI : MonoBehaviour
 
     private void OnHomeButtonClicked()
     {
+        AudioManager.Instance.PlayEffectAudio(clickAudioClip);
         SceneManager.LoadSceneAsync(0);
     }
 
     private void OnPlayButtonClicked()
     {
         GameManager.Instance.IncrementLevel();
+        AudioManager.Instance.PlayEffectAudio(clickAudioClip);
         SceneManager.LoadScene(1);
     }
 
     private void OnRestartButtonClicked()
     {
+        AudioManager.Instance.PlayEffectAudio(clickAudioClip);
         SceneManager.LoadScene(1);
     }
 

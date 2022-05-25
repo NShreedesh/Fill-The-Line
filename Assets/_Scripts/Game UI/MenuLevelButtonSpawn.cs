@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,6 +7,9 @@ public class MenuLevelButtonSpawn : MonoBehaviour
     [Header("Level Button Info")]
     [SerializeField] private Button levelButtonPrefab;
     [SerializeField] private int numberOfButtonsToSpawnInOneScreen = 12;
+
+    [Header("Audio Info")]
+    [SerializeField] private AudioClip clickAudioClip;
 
     private void Start()
     {
@@ -43,6 +45,7 @@ public class MenuLevelButtonSpawn : MonoBehaviour
     private void ButtonFunction(int levelNumber)
     {
         GameManager.Instance.AssignLevelNumber(levelNumber);
+        AudioManager.Instance.PlayEffectAudio(clickAudioClip);
         SceneManager.LoadScene(1);
     }
 }
