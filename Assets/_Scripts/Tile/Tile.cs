@@ -3,19 +3,19 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     [Header("Tile Info")]
-     public bool isFilled;
+    public bool isFilled;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     [Header("Color Info")]
     [HideInInspector] public Color fillColor;
-    private Color startColor;
+    private Color _startColor;
 
     private void Start()
     {
-        startColor = spriteRenderer.color;
+        _startColor = spriteRenderer.color;
     }
 
-    public void FillTile(bool shouldFill)
+    public void Fill_UnFill_Tile(bool shouldFill)
     {
         isFilled = shouldFill;
 
@@ -25,7 +25,7 @@ public class Tile : MonoBehaviour
         }
         else
         {
-            spriteRenderer.color = startColor;
+            spriteRenderer.color = _startColor;
         }
     }
 }

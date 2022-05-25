@@ -1,11 +1,12 @@
 using UnityEngine;
 
-public class SaveLoadManager
+public static class SaveLoadManager
 {
     public static void Save(int levelNumber)
     {
         PlayerPrefs.SetInt(SaveLoadManagerTags.LevelNumberTag, levelNumber);
     }
+
     public static int Load(string key)
     {
         if (!PlayerPrefs.HasKey(key)) return 1;

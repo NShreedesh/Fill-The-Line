@@ -4,10 +4,9 @@ using UnityEngine;
 public class LevelSpawnner : MonoBehaviour
 {
     [Header("Level Info")]
-    [SerializeField] private List<GameObject> levelList = new List<GameObject>();
+    [SerializeField] private List<GameObject> levelList = new();
 
     [Header("Spawn Level Info")]
-    public LayerMask tileLayer;
     private Transform tileContainer;
     [HideInInspector] public List<Tile> tileList = new();
     [HideInInspector] public Tile firstTile;
@@ -18,12 +17,6 @@ public class LevelSpawnner : MonoBehaviour
 
     [Header("Camera Info")]
     public Camera cam;
-
-    [Header("Effect Info")]
-    [SerializeField] private ParticleSystem winEffect;
-
-    [Header("Click Info")]
-    [SerializeField] private bool isFirstClick = true;
 
     [Header("Tile Color Info")]
     [SerializeField] private Color[] tileColorOptions =
@@ -59,84 +52,6 @@ public class LevelSpawnner : MonoBehaviour
         firstTile = tileList[0];
 
         prevPostion = firstTile.transform.position;
-        firstTile.FillTile(true);
-    }
-
-    public void FillTheTile(Vector2 worldMousePosition)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(worldMousePosition, Vector2.zero, 100, tileLayer);
-
-        if (hit.collider == null) return;
-        Tile tile = hit.transform.GetComponent<Tile>();
-
-        if (isFirstClick)
-        {
-            if (tile == firstTile)
-            {
-                isFirstClick = false;
-            }
-            else
-            {
-                return;
-            }
-        }
-
-        if (tile.isFilled) return;
-        if (!CheckIftheTileCanBeFilled(tile.transform.position)) return;
-        currentTile = tile;
-        tile.FillTile(true);
-    }
-
-    private void UnFillAllTiles()
-    {
-        foreach (Tile tile in tileList)
-        {
-            if (tile != firstTile)
-            {
-                tile.FillTile(false);
-            }
-        }
-
-        prevPostion = firstTile.transform.position;
-        isFirstClick = true;
-    }
-
-    public void CheckAllTiles()
-    {
-        foreach (Tile tile in tileList)
-        {
-            if (!tile.isFilled)
-            {
-                UnFillAllTiles();
-                return;
-            }
-        }
-        Instantiate(winEffect, currentTile.transform.position, Quaternion.identity);
-        GameManager.Instance.ChangeGameState(GameManager.GameState.Win);
-    }
-
-    private bool CheckIftheTileCanBeFilled(Vector2 position)
-    {
-        if (Mathf.Abs(prevPostion.x - position.x) == 1 &&
-           Mathf.Abs(prevPostion.y - position.y) == 0)
-        {
-            prevPostion = position;
-            return true;
-        }
-
-        else if (Mathf.Abs(prevPostion.y - position.y) == 1 &&
-           Mathf.Abs(prevPostion.x - position.x) == 0)
-        {
-            prevPostion = position;
-            return true;
-        }
-
-        return false;
-    }
-
-    public Vector2 ConvertToWorldPosition(Vector2 position)
-    {
-        Vector2 worldPosition = cam.ScreenToWorldPoint(position);
-        return worldPosition;
+        firstTile.Fill_UnFill_Tile(true);
     }
 }

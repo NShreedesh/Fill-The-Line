@@ -29,14 +29,8 @@ public class GameUI : MonoBehaviour
 
     private void Start()
     {
-        homeButton.onClick.AddListener(() =>
-        {
-            OnHomeButtonClicked();
-        });
-        soundButton.onClick.AddListener(() =>
-        {
-            OnSoundButtonClicked();
-        });
+        homeButton.onClick.AddListener(OnHomeButtonClicked);
+        soundButton.onClick.AddListener( OnSoundButtonClicked);
 
         IsSoundOn = true;
         ChangeLevelText();

@@ -10,18 +10,9 @@ public class GameOverUI : MonoBehaviour
 
     private void Start()
     {
-        homeButton.onClick.AddListener(() =>
-        {
-            OnHomeButtonClicked();
-        });
-        playButton.onClick.AddListener(() =>
-        {
-            OnPlayButtonClicked();
-        });
-        restartButton.onClick.AddListener(() =>
-        {
-            OnRestartButtonClicked();
-        });
+        homeButton.onClick.AddListener(OnHomeButtonClicked);
+        playButton.onClick.AddListener(OnPlayButtonClicked);
+        restartButton.onClick.AddListener(OnRestartButtonClicked);
     }
 
     private void OnHomeButtonClicked()
