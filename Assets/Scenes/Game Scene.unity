@@ -1216,13 +1216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f322f86d280bf4bbfe5636926b45e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelList:
-  - {fileID: 7160677542156008233, guid: 9ba82f59c27a6cf428cc8e0863b4a327, type: 3}
-  - {fileID: 7160677542156008233, guid: 2ed2cf85ead21434192aa93fd7f1b0fe, type: 3}
-  - {fileID: 7160677542156008233, guid: 4ff59a15f64589b46a1a7c0fb33a6f23, type: 3}
-  tileLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  levelObject: {fileID: 11400000, guid: fc279ed1cdbc1e043a3afbeed571abf4, type: 2}
   tileList: []
   firstTile: {fileID: 0}
   prevPostion: {x: 0, y: 0}

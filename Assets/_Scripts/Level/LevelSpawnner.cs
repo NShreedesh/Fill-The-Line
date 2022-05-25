@@ -4,7 +4,7 @@ using UnityEngine;
 public class LevelSpawnner : MonoBehaviour
 {
     [Header("Level Info")]
-    [SerializeField] private List<GameObject> levelList = new();
+    [SerializeField] private LevelObject levelObject;
 
     [Header("Spawn Level Info")]
     private Transform tileContainer;
@@ -33,14 +33,15 @@ public class LevelSpawnner : MonoBehaviour
     {
         SpawnLevel();
         GameManager.Instance.ChangeGameState(GameManager.GameState.Play);
-        GameManager.Instance.AssignTotalNumberOfLevel(levelList.Count);
+        GameManager.Instance.AssignTotalNumberOfLevel(levelObject.levelInfos.Count);
     }
 
     private void SpawnLevel()
     {
         tileColor = tileColorOptions[Random.Range(0, tileColorOptions.Length)];
+        LevelInfo levleInfo = levelObject.levelInfos[GameManager.Instance.LevelNumber - 1];
 
-        tileContainer = Instantiate(levelList[GameManager.Instance.LevelNumber - 1], transform.position, Quaternion.identity).transform;
+        tileContainer = Instantiate(levleInfo.levelPrefab, transform.position, Quaternion.identity).transform;
 
         for (int i = 0; i < tileContainer.childCount; i++)
         {
@@ -49,7 +50,7 @@ public class LevelSpawnner : MonoBehaviour
             tileList.Add(tile);
         }
 
-        firstTile = tileList[0];
+        firstTile = levleInfo.selectFirstTile < tileContainer.childCount ? tileList[levleInfo.selectFirstTile] : tileList[0];
 
         prevPostion = firstTile.transform.position;
         firstTile.Fill_UnFill_Tile(true);
