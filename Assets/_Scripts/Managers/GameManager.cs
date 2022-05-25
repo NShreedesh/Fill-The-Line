@@ -7,22 +7,22 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager instance;
-    public static GameManager Instance { get { return instance; } }
+    private static GameManager _instance;
+    public static GameManager Instance { get { return _instance; } }
 
     [Header("GameState Info")]
     public GameState gameState;
 
     [Header("Game Level Info")]
     [Min(1)]
-    private int levelNumber = 1;
-    public int LevelNumber { get { return levelNumber; }}
+    private int _levelNumber = 1;
+    public int LevelNumber { get { return _levelNumber; }}
     [Min(1)]
-    private int totalNumberofLevels = 1;
-    public int TotalNumberofLevels { get { return totalNumberofLevels; }}
+    private int _totalNumberofLevels = 1;
+    public int TotalNumberofLevels { get { return _totalNumberofLevels; }}
     [Min(1)]
-    private int totalUnlockedLevels = 1;
-    public int TotalUnlockedLevels { get { return totalUnlockedLevels; } }
+    private int _totalUnlockedLevels = 1;
+    public int TotalUnlockedLevels { get { return _totalUnlockedLevels; } }
 
     [Header("Level Timing Info")]
     [SerializeField] private float timeForLoadingWinLevel;
@@ -31,15 +31,15 @@ public class GameManager : MonoBehaviour
     public event Action OnPlayState;
     public event Action OnWinState;
 
-    private CancellationTokenSource cancellationTokenSource;
+    private CancellationTokenSource _cancellationTokenSource;
 
     private void Awake()
     {
         SetFrameRateAccordingToPlatform();
 
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
+            _instance = this;
             DontDestroyOnLoad(this);
         }
         else
@@ -109,11 +109,11 @@ public class GameManager : MonoBehaviour
 
     private async void OnGameWin()
     {
-        cancellationTokenSource = new CancellationTokenSource();
-        cancellationTokenSource.Token.ThrowIfCancellationRequested();
+        _cancellationTokenSource = new CancellationTokenSource();
+        _cancellationTokenSource.Token.ThrowIfCancellationRequested();
         try
         {
-            await Task.Delay((int)(timeForLoadingWinLevel * 1000), cancellationTokenSource.Token);
+            await Task.Delay((int)(timeForLoadingWinLevel * 1000), _cancellationTokenSource.Token);
             SceneManager.LoadScene(2);
         }
         catch
@@ -132,49 +132,49 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey(SaveLoadManagerTags.LevelNumberTag))
         {
-            totalUnlockedLevels = PlayerPrefs.GetInt(SaveLoadManagerTags.LevelNumberTag);
+            _totalUnlockedLevels = PlayerPrefs.GetInt(SaveLoadManagerTags.LevelNumberTag);
         }
         else
         {
-            totalUnlockedLevels = 1;
+            _totalUnlockedLevels = 1;
         }
     }
 
     public void IncrementLevel()
     {
-        if (levelNumber < totalNumberofLevels)
+        if (_levelNumber < _totalNumberofLevels)
         {
-            levelNumber++;
+            _levelNumber++;
         }
     }
 
     public void SaveLevel()
     {
-        if (levelNumber >= totalNumberofLevels) return;
-        int levelToSave = levelNumber + 1;
+        if (_levelNumber >= _totalNumberofLevels) return;
+        int levelToSave = _levelNumber + 1;
 
-        if (levelToSave <= totalUnlockedLevels) return;
+        if (levelToSave <= _totalUnlockedLevels) return;
         SaveLoadManager.Save(levelToSave);
     }
 
     public void AssignLevelNumber(int level)
     {
-        levelNumber = level;
+        _levelNumber = level;
     }
 
     public void AssignTotalNumberOfLevel(int totalLevels)
     {
-        totalNumberofLevels = totalLevels;
+        _totalNumberofLevels = totalLevels;
     }
 
     private void OnApplicationQuit()
     {
-        cancellationTokenSource?.Cancel();
+        _cancellationTokenSource?.Cancel();
     }
 
     private void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        cancellationTokenSource?.Cancel();
+        _cancellationTokenSource?.Cancel();
     }
 
     public enum GameState

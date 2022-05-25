@@ -4,11 +4,11 @@ using static UnityEngine.InputSystem.InputAction;
 public class PlayerController : MonoBehaviour
 {
     [Header("Other Scripts Info")]
-    private InputController inputController;
+    private InputController _inputController;
     [SerializeField] private LevelSpawnner spawnner;
 
     [Header("Input Info")]
-    private float clickInputValue;
+    private float _clickInputValue;
 
     [Header("Click Info")]
     [SerializeField] private bool isFirstClick = true;
@@ -21,37 +21,37 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        inputController = new InputController();
+        _inputController = new InputController();
     }
 
     private void OnEnable()
     {
-        inputController.Player.Click.started += OnClicked;
-        inputController.Player.Click.canceled += OnReleased;
+        _inputController.Player.Click.started += OnClicked;
+        _inputController.Player.Click.canceled += OnReleased;
 
-        inputController.Enable();
+        _inputController.Enable();
     }
 
     private void OnClicked(CallbackContext ctx)
     {
         if (GameManager.Instance.gameState != GameManager.GameState.Play) return;
-        clickInputValue = ctx.ReadValue<float>();
+        _clickInputValue = ctx.ReadValue<float>();
     }
 
     private void OnReleased(CallbackContext ctx)
     {
         if (GameManager.Instance.gameState != GameManager.GameState.Play) return;
 
-        clickInputValue = ctx.ReadValue<float>();
+        _clickInputValue = ctx.ReadValue<float>();
 
         CheckAllTiles();
     }
 
     private void Update()
     {
-        if (clickInputValue != 1) return;
+        if (_clickInputValue != 1) return;
 
-        Vector2 worldMosuePosition = ConvertToWorldPosition(inputController.Player.MousePosition.ReadValue<Vector2>());
+        Vector2 worldMosuePosition = ConvertToWorldPosition(_inputController.Player.MousePosition.ReadValue<Vector2>());
         FillTheTile(worldMosuePosition);
     }
 
@@ -135,6 +135,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        inputController.Disable();
+        _inputController.Disable();
     }
 }

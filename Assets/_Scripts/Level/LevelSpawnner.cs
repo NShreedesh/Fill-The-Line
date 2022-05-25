@@ -7,7 +7,7 @@ public class LevelSpawnner : MonoBehaviour
     [SerializeField] private LevelObject levelObject;
 
     [Header("Spawn Level Info")]
-    private Transform tileContainer;
+    private Transform _tileContainer;
     [HideInInspector] public List<Tile> tileList = new();
     [HideInInspector] public Tile firstTile;
     [HideInInspector] public Vector2 prevPostion;
@@ -27,7 +27,7 @@ public class LevelSpawnner : MonoBehaviour
         Color.yellow,
         Color.magenta
     };
-    private Color tileColor;
+    private Color _tileColor;
 
     private void Start()
     {
@@ -38,19 +38,19 @@ public class LevelSpawnner : MonoBehaviour
 
     private void SpawnLevel()
     {
-        tileColor = tileColorOptions[Random.Range(0, tileColorOptions.Length)];
+        _tileColor = tileColorOptions[Random.Range(0, tileColorOptions.Length)];
         LevelInfo levleInfo = levelObject.levelInfos[GameManager.Instance.LevelNumber - 1];
 
-        tileContainer = Instantiate(levleInfo.levelPrefab, transform.position, Quaternion.identity).transform;
+        _tileContainer = Instantiate(levleInfo.levelPrefab, transform.position, Quaternion.identity).transform;
 
-        for (int i = 0; i < tileContainer.childCount; i++)
+        for (int i = 0; i < _tileContainer.childCount; i++)
         {
-            tileContainer.GetChild(i).TryGetComponent<Tile>(out Tile tile);
-            tile.fillColor = tileColor;
+            _tileContainer.GetChild(i).TryGetComponent<Tile>(out Tile tile);
+            tile.fillColor = _tileColor;
             tileList.Add(tile);
         }
 
-        firstTile = levleInfo.selectFirstTile < tileContainer.childCount ? tileList[levleInfo.selectFirstTile] : tileList[0];
+        firstTile = levleInfo.selectFirstTile < _tileContainer.childCount ? tileList[levleInfo.selectFirstTile] : tileList[0];
 
         prevPostion = firstTile.transform.position;
         firstTile.Fill_UnFill_Tile(true);
