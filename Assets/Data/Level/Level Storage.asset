@@ -18,7 +18,34 @@ MonoBehaviour:
     selectFirstTile: 0
   - levelNumber: 2
     levelPrefab: {fileID: 7160677542156008233, guid: 2ed2cf85ead21434192aa93fd7f1b0fe, type: 3}
-    selectFirstTile: 2
+    selectFirstTile: 0
   - levelNumber: 3
     levelPrefab: {fileID: 7160677542156008233, guid: 4ff59a15f64589b46a1a7c0fb33a6f23, type: 3}
     selectFirstTile: 0
+  - levelNumber: 4
+    levelPrefab: {fileID: 7160677542156008233, guid: 48a07d573bdb6954a987b17363ee1642, type: 3}
+    selectFirstTile: 0
+  - levelNumber: 5
+    levelPrefab: {fileID: 7160677542156008233, guid: b16e85c4425d15844894226099042ab0, type: 3}
+    selectFirstTile: 0
+  - levelNumber: 6
+    levelPrefab: {fileID: 7160677542156008233, guid: 3851d1d5db9add7429e0e72759ac69c6, type: 3}
+    selectFirstTile: 0
+  - levelNumber: 7
+    levelPrefab: {fileID: 7160677542156008233, guid: e3cbb79ef423d804cb9285a97410ee9a, type: 3}
+    selectFirstTile: 0
+  - levelNumber: 8
+    levelPrefab: {fileID: 7160677542156008233, guid: 4538b38ed6e97c3438ac6cbfda29a873, type: 3}
+    selectFirstTile: 0
+  - levelNumber: 9
+    levelPrefab: {fileID: 7160677542156008233, guid: 3c103583834f1c449b322b7cb3538851, type: 3}
+    selectFirstTile: 6
+  - levelNumber: 10
+    levelPrefab: {fileID: 7160677542156008233, guid: 4677b5cfd952a174e957aa9035eff0d8, type: 3}
+    selectFirstTile: 8
+  - levelNumber: 11
+    levelPrefab: {fileID: 7160677542156008233, guid: 26604d019b456b74b9f28bd968dc01d0, type: 3}
+    selectFirstTile: 10
+  - levelNumber: 12
+    levelPrefab: {fileID: 7160677542156008233, guid: 42187a0704ee01944aada85036254c7d, type: 3}
+    selectFirstTile: 15
