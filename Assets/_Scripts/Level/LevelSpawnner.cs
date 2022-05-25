@@ -10,10 +10,9 @@ public class LevelSpawnner : MonoBehaviour
     private Transform _tileContainer;
     [HideInInspector] public List<Tile> tileList = new();
     [HideInInspector] public Tile firstTile;
-    [HideInInspector] public Vector2 prevPostion;
 
     [Header("Tile Storage Info")]
-    public Tile currentTile;
+    public List<Tile> filledTileList = new();
 
     [Header("Camera Info")]
     public Camera cam;
@@ -52,7 +51,8 @@ public class LevelSpawnner : MonoBehaviour
 
         firstTile = levleInfo.selectFirstTile < _tileContainer.childCount ? tileList[levleInfo.selectFirstTile] : tileList[0];
 
-        prevPostion = firstTile.transform.position;
         firstTile.Fill_UnFill_Tile(true);
+
+        filledTileList.Add(firstTile);
     }
 }

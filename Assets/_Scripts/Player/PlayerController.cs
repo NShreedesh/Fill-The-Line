@@ -74,10 +74,22 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (tile.isFilled) return;
+        if (spawnner.filledTileList[^1] == tile) return;
+
+        if (tile.isFilled)
+        {
+            if (spawnner.filledTileList.Count <= 1) return;
+
+            if(spawnner.filledTileList[^2] == tile)
+            {
+                spawnner.filledTileList[^1].Fill_UnFill_Tile(false);
+                spawnner.filledTileList.RemoveAt(spawnner.filledTileList.Count - 1);
+            }
+            return;
+        }
         if (!CheckIftheTileCanBeFilled(tile.transform.position)) return;
-        spawnner.currentTile = tile;
         tile.Fill_UnFill_Tile(true);
+        spawnner.filledTileList.Add(tile);
     }
 
     private void UnFillAllTiles()
@@ -90,7 +102,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        spawnner.prevPostion = spawnner.firstTile.transform.position;
+        spawnner.filledTileList.RemoveRange(1, spawnner.filledTileList.Count - 1);
         isFirstClick = true;
     }
 
@@ -104,23 +116,21 @@ public class PlayerController : MonoBehaviour
                 return;
             }
         }
-        Instantiate(winEffect, spawnner.currentTile.transform.position, Quaternion.identity);
+        Instantiate(winEffect, spawnner.filledTileList[^1].transform.position, Quaternion.identity);
         GameManager.Instance.ChangeGameState(GameManager.GameState.Win);
     }
 
     public bool CheckIftheTileCanBeFilled(Vector2 position)
     {
-        if (Mathf.Abs(spawnner.prevPostion.x - position.x) == 1 &&
-           Mathf.Abs(spawnner.prevPostion.y - position.y) == 0)
+        if (Mathf.Abs(spawnner.filledTileList[^1].transform.position.x - position.x) == 1 &&
+           Mathf.Abs(spawnner.filledTileList[^1].transform.position.y - position.y) == 0)
         {
-            spawnner.prevPostion = position;
             return true;
         }
 
-        else if (Mathf.Abs(spawnner.prevPostion.y - position.y) == 1 &&
-           Mathf.Abs(spawnner.prevPostion.x - position.x) == 0)
+        else if (Mathf.Abs(spawnner.filledTileList[^1].transform.position.y - position.y) == 1 &&
+           Mathf.Abs(spawnner.filledTileList[^1].transform.position.x - position.x) == 0)
         {
-            spawnner.prevPostion = position;
             return true;
         }
 
