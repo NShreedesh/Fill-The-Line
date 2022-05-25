@@ -130,14 +130,7 @@ public class GameManager : MonoBehaviour
 
     private void UnlockedLevelChange()
     {
-        if (PlayerPrefs.HasKey(SaveLoadManagerTags.LevelNumberTag))
-        {
-            _totalUnlockedLevels = PlayerPrefs.GetInt(SaveLoadManagerTags.LevelNumberTag);
-        }
-        else
-        {
-            _totalUnlockedLevels = 1;
-        }
+        _totalUnlockedLevels = SaveLoadManager.Load(SaveLoadManagerTags.LevelNumberTag);
     }
 
     public void IncrementLevel()
